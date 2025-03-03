@@ -1,19 +1,19 @@
 class Solution {
 public:
-    double myPow(double x, int n) {
-        if (n == 0) return 1;
+double solve(double x,long n)
+{
+    if(n==0) return 1;
+        if(n<0)
+        return solve(1/x,-n);
+        if(n%2==0)return solve(x*x,n/2);
+        else
+        return x*solve(x*x,(n-1)/2);
 
-    long long power = abs((long long)n); 
-    double result = 1.0;
+}
 
-    while (power > 0) {
-        if (power % 2 == 1) {  
-            result *= x;
-        }
-        x *= x; 
-        power /= 2;
-    }
-
-    return (n < 0) ? (1 / result) : result;
+    double myPow(double x, long n) {
+        return solve(x,(long)n);
+        
+        
     }
 };
