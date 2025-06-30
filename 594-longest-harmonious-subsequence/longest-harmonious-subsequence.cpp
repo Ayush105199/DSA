@@ -21,28 +21,49 @@
 //     }
 // };
 
+// class Solution {
+// public:
+//     int findLHS(vector<int>& nums) {
+//         // int n=nums.size();
+//         map<int,int>m;
+//         for(auto i : nums)
+//         {
+//             m[i]++;
+
+//         }
+//         int maxi=0;
+//         for(auto [num,val]:m)
+//         {
+//             int q=0;
+//             if(m.find(num+1)!=m.end())
+//             {
+//                 q=m[num+1]+m[num];
+//             }
+//             maxi=max(q,maxi);
+
+//         }
+//         return maxi;
+        
+//     }
+// };
+
 class Solution {
 public:
     int findLHS(vector<int>& nums) {
-        // int n=nums.size();
-        map<int,int>m;
-        for(auto i : nums)
-        {
-            m[i]++;
-
-        }
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        int i=0,j=0;
         int maxi=0;
-        for(auto [num,val]:m)
+        while(j<n)
         {
-            int q=0;
-            if(m.find(num+1)!=m.end())
+            if(nums[j]-nums[i]>1)
+            i++;
+            if(nums[j]-nums[i]==1)
             {
-                q=m[num+1]+m[num];
+                maxi=max(maxi,j-i+1);
             }
-            maxi=max(q,maxi);
-
+                j++;
         }
         return maxi;
-        
     }
 };
