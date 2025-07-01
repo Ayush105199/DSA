@@ -8,7 +8,7 @@ public:
         {
             if(word[i]==word[i+1])
             {
-                m[i]++;
+                m[word[i]]++;
             }
         }
         int sum=0;
