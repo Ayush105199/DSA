@@ -15,7 +15,7 @@ int solve(int i,vector<int>&cost,int n,vector<int>&dp)
     int twostep=cost[i]+solve(i+2,cost,n,dp);
 
     return dp[i]=min(onestep,twostep);
-    return min(onestep,twostep);
+    // return min(onestep,twostep);
 }
     int minCostClimbingStairs(vector<int>& cost) {
         int n=cost.size();
