@@ -1,19 +1,28 @@
 class Solution {
 public:
-double solve(double x,long n)
+double power(double x, long long n)
 {
-    if(n==0) return 1;
-        if(n<0)
-        return solve(1/x,-n);
-        if(n%2==0)return solve(x*x,n/2);
+         if (n == 0)
+            return 1.0;
+
+        double half = power(x, n / 2);
+
+        if (n % 2 == 0)
+            return half * half;
         else
-        return x*solve(x*x,(n-1)/2);
-
+            return half * half * x;
+        
 }
+    double myPow(double x, int n) {
+        long long N = n;  // prevent overflow for -2^31
 
-    double myPow(double x, long n) {
-        return solve(x,(long)n);
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+
         
-        
+
+        return power(x,N);
     }
 };
