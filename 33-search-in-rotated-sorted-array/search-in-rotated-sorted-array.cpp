@@ -1,30 +1,51 @@
 class Solution {
 public:
-    int search(vector<int>& arr, int target) {
-         int n=arr.size();
-        // int l=0;
-        // int ans=n-1;
-        // int r=n-1;
-        // while(l<=r){
-        //     int mid=l+(r-l)/2;
-        //     if(arr[mid]==target)
-        //     return mid;
-        //     else if(arr[mid]<arr[mid+1])
-        //     {
-        //         l=mid+1;
-        //     }
-        //     else{
-        //         ans=mid;
-        //         r=mid-1;
-        //     }
-
-        // }
-        // return ans;
-        for(int i=0;i<n;i++)
+int pivotindex(vector<int>&nums,int l,int r)
+{
+    while(l<r)
+    {
+        int mid=l+(r-l)/2;
+        if(nums[mid]>nums[r])
         {
-            if(arr[i]==target)
-            return i;
+            l=mid+1;
         }
-        return -1;
+        else
+        r=mid;
+    }
+    return r;
+}
+int  binarysearch(vector<int>& nums, int target,int l,int r)
+{
+    while(l<=r)
+    {
+        int mid=l+(r-l)/2;
+        if(nums[mid]==target)
+        {
+            return mid;
+        }
+        else if(nums[mid]>target)
+        r=mid-1;
+        else
+        l=mid+1;
+    }
+    return -1;
+}
+    int search(vector<int>& nums, int target) {
+        int n=nums.size();
+        int idx=pivotindex(nums,0,n-1);
+        int p=binarysearch(nums,target,0,idx-1);
+        if(p!=-1)
+        return p;
+        else
+        {
+            p=binarysearch(nums,target,idx,n-1);
+
+        }
+        return p;
+
+
+
+
+        
     }
 };
