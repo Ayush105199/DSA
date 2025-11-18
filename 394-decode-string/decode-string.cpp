@@ -1,36 +1,38 @@
 class Solution {
 public:
     string decodeString(string s) {
-       
-       stack<pair<string, int>> st;
-        string curString = "";
-        int curNum = 0;
-
-        for (char c : s) {
-
-            if (isdigit(c)) {
-                curNum = curNum * 10 + (c - '0');
+        stack<pair<string,int>>m;
+        int num=0;
+        string currs="";
+        for(char c:s)
+        {
+            if(c=='[')
+            {
+                m.push({currs,num});
+                currs="";
+                num=0;
             }
-            else if (c == '[') {
-               
-                st.push({curString, curNum});
-                curString = "";
-                curNum = 0;
-            }
-            else if (c == ']') {
-                auto [prevString, num] = st.top();
-                st.pop();
+            else if(c==']')
+            {
+                auto [prevstring,cnum]=m.top();
+                m.pop();
+                string temp="";
+                for(int i=1;i<=cnum;i++)
+                temp+=currs;
 
-                string temp = "";
-                while (num--) temp += curString;
+                currs=prevstring+temp;
 
-                curString = prevString + temp;
             }
-            else {
-                curString += c;
+            else if(isdigit(c))
+            {
+                num=num*10+ c -'0';  
             }
+            else{
+                currs+=c;
+            }
+
         }
-
-        return curString;
+        return currs;
+        
     }
 };
