@@ -25,12 +25,12 @@ int mininteger(vector<int>& piles, int h,int maxpiles)
 }
     int minEatingSpeed(vector<int>& piles, int h) {
         int n=piles.size();
-        int maxpiles=INT_MIN;
-        for(int i=0;i<n;i++)
-        {
-            if(piles[i]>maxpiles)
-            maxpiles=piles[i];
-        }
+        int maxpiles=*max_element(piles.begin(),piles.end());
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(piles[i]>maxpiles)
+        //     maxpiles=piles[i];
+        // }
         int p=mininteger(piles,h,maxpiles);
         return p;
     }
