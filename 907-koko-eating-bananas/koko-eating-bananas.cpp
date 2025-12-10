@@ -3,14 +3,16 @@ public:
 int mininteger(vector<int>& piles, int h,int maxpiles)
 {
     int l=1;
-    int ans=maxpiles;
     int r=maxpiles;
+    int ans=maxpiles;
     while(l<=r)
     {
-        int mid=l+(r-l)/2;
+        // int mid=l+(r-l)/2;
+        int mid=(l+r)/2;
         long long count=0;
         for(int i=0;i<piles.size();i++)
         {
+            //for ceiling value
             count+=(piles[i]+mid-1)/mid;
         }
         if(count<=h){
