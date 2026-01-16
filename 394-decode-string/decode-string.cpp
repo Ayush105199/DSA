@@ -1,38 +1,62 @@
 class Solution {
 public:
     string decodeString(string s) {
-        stack<pair<string,int>>m;
-        int num=0;
-        string currs="";
-        for(char c:s)
+        stack<int> numStack;
+        stack<string> stringStack;
+        int k = 0;
+
+        for (char c : s) 
         {
-            if(c=='[')
-            {
-                m.push({currs,num});
-                currs="";
-                num=0;
+            // If digit, build the number (handles multi-digit like 12[a])
+            if (isdigit(c)) {
+                k = k * 10 + (c - '0');
             }
-            else if(c==']')
-            {
-                auto [prevstring,cnum]=m.top();
-                m.pop();
-                string temp="";
-                for(int i=1;i<=cnum;i++)
-                temp+=currs;
+            // If opening bracket
+            else if (c == '[') {
+                numStack.push(k);
+                k = 0;
+                stringStack.push("[");
+            }
+            // If closing bracket, decode
+            else if (c == ']') {
+                string temp = "";
+                while (!stringStack.empty() && stringStack.top() != "[") {
+                    temp = stringStack.top() + temp;
+                    stringStack.pop();
+                }
 
-                currs=prevstring+temp;
+                // Remove '['
+                if (!stringStack.empty()) stringStack.pop();
 
-            }
-            else if(isdigit(c))
-            {
-                num=num*10+ c -'0';  
-            }
-            else{
-                currs+=c;
-            }
+                int count = numStack.top();
+                numStack.pop();
 
+                string replacement = "";
+                while (count--) {
+                    replacement += temp;
+                }
+
+                stringStack.push(replacement);
+            }
+            // Normal characters
+            else {
+                stringStack.push(string(1, c));
+            }
         }
-        return currs;
+
+
+
+        
+
+        // Build final result
+        string result = "";
+        while (!stringStack.empty()) {
+            result = stringStack.top() + result;
+            stringStack.pop();
+        }
+
+        return result;
+        
         
     }
 };
